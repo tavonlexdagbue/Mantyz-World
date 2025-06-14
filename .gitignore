@@ -138,5 +138,6 @@ dist
 # Vercel directory
 .vercel/
 
+
 # Optional files
 .DS_Store
