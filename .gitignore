@@ -134,3 +134,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Vercel directory
+.vercel/
+
+# Optional files
+.DS_Store
