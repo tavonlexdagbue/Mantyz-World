@@ -141,3 +141,4 @@ dist
 
 # Optional files
 .DS_Store
+.vercel
