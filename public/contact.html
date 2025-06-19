@@ -145,41 +145,44 @@
             </div>
         </div>
         <!-- Contact End -->
+
 <script>
-document.getElementById('contactForm').addEventListener('submit', async e => {
-  e.preventDefault();
+  document.getElementById('contactForm').addEventListener('submit', async e => {
+    e.preventDefault();
 
-  const form = e.target;
-  const formData = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    message: form.message.value.trim(),
-  };
+    const form = e.target;
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      message: form.message.value.trim()
+    };
 
-  const responseDiv = document.getElementById('response');
-  responseDiv.textContent = 'Sending...';
+    const responseDiv = document.getElementById('response');
+    responseDiv.textContent = "Sending...";
 
-  try {
-    const res = await fetch('/api/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      responseDiv.style.color = 'green';
-      responseDiv.textContent = data.message || 'Message sent successfully!';
-      form.reset();
-    } else {
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        responseDiv.style.color = 'green';
+        responseDiv.textContent = result.message || 'Message sent successfully!';
+        form.reset();
+      } else {
+        responseDiv.style.color = 'red';
+        responseDiv.textContent = result.error || 'Failed to send message.';
+      }
+    } catch (err) {
       responseDiv.style.color = 'red';
-      responseDiv.textContent = data.error || 'Failed to send message.';
+      responseDiv.textContent = 'Error sending message.';
+      console.error(err);
     }
-  } catch (err) {
-    responseDiv.style.color = 'red';
-    responseDiv.textContent = 'Error sending message.';
-    console.error(err);
-  }
-});
+  });
 </script>
 
        
