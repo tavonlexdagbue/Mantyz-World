@@ -44,19 +44,38 @@
             });
         })();
     </script>
+    <script>
+    var templateParams = {
+  name: '',
+  notes: '',
+};
+
+emailjs.send('service_1vzrlr3', 'template_nu148al', templateParams).then(
+  (response) => {
+    console.log('SUCCESS!', response.status, response.text);
+  },
+  (error) => {
+    console.log('FAILED...', error);
+  },
+);
+</script>
+
     <script type="text/javascript">
         window.onload = function() {
             document.getElementById('contact-form').addEventListener('submit', function(event) {
                 event.preventDefault();
                 // these IDs from the previous steps
-                emailjs.sendForm('contact_service', 'contact_form', this)
-                    .then(() => {
-                        console.log('SUCCESS!');
-                    }, (error) => {
-                        console.log('FAILED...', error);
-                    });
-            });
-        }
+                emailjs.send(serviceID, templateID, templateParams, options)
+
+                emailjs.sendForm('service_1vzrlr3', 'template_nu148al', '#myForm').then(
+  (response) => {
+    console.log('SUCCESS!', response.status, response.text);
+  },
+  (error) => {
+    console.log('FAILED...', error);
+  },
+);
+
     </script>
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
