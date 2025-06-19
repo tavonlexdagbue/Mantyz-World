@@ -45,38 +45,26 @@
         })();
     </script>
     <script>
-    var templateParams = {
-  name: '',
-  notes: '',
+    var data = {
+    service_id: 'service_1vzrlr3',
+    template_id: 'template_nu148al',
+    user_id: 'nOX4TVJy6qiCbxPo1',
+    template_params: {
+        'username': '',
+        'g-recaptcha-response': ''
+    }
 };
-
-emailjs.send('service_1vzrlr3', 'template_nu148al', templateParams).then(
-  (response) => {
-    console.log('SUCCESS!', response.status, response.text);
-  },
-  (error) => {
-    console.log('FAILED...', error);
-  },
-);
+ 
+$.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+    type: 'POST',
+    data: JSON.stringify(data),
+    contentType: 'application/json'
+}).done(function() {
+    alert('Your mail is sent!');
+}).fail(function(error) {
+    alert('Oops... ' + JSON.stringify(error));
+});
 </script>
-
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // these IDs from the previous steps
-                emailjs.send(serviceID, templateID, templateParams, options)
-
-                emailjs.sendForm('service_1vzrlr3', 'template_nu148al', '#myForm').then(
-  (response) => {
-    console.log('SUCCESS!', response.status, response.text);
-  },
-  (error) => {
-    console.log('FAILED...', error);
-  },
-);
-
-    </script>
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
