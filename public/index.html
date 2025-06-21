@@ -314,7 +314,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div id="products"></div>
+ <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="/img/service-9.jpeg" class="img-fluid rounded-top w-100" alt="Image">
@@ -326,6 +327,31 @@
                             </div>
                         </div>
                     </div>
+  <script>
+    async function loadProducts() {
+      const res = await fetch('/api/get-products');
+      const products = await res.json();
+
+      document.getElementById('products').innerHTML = products.map(p => `
+         <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src=${p.image}"  class="img-fluid rounded-top w-100" alt="Image">
+                            </div>
+                            <div class="rounded-bottom p-4">
+                                <a href="#" class="h4 d-inline-block mb-4">${p.name}</a>
+                                <p class="mb-4">${p.description}</p>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">₦${p.price}</a>
+                            </div>
+                        </div>
+                    </div>
+         
+      `).join('');
+    }
+
+    loadProducts();
+  </script>
+                   
                 </div>
             </div>
         </div>
@@ -557,8 +583,8 @@
                     <div class="col-md-6 col-lg-6 col-xl-2">
                         <div class="footer-item">
                             <h4 class="text-white mb-4">Quick Links</h4>
-                            <a href="/"><i class="fas fa-angle-right me-2"></i> About Us</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                            <a href="/add.html"><i class="fas fa-angle-right me-2"></i> admin</a>
+                            
                         </div>
                     </div>
                     

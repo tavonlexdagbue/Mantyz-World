@@ -115,15 +115,16 @@
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
 
     <h2 style="text-align:center;">Add Product with Image</h2>
-  <form id="productForm" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Product Name" required />
-    <input type="number" name="price" placeholder="Price" required />
-    <textarea name="description" placeholder="Description" rows="4"></textarea>
-    <input type="file" name="image" accept="image/*" required />
-    <button type="submit">Add Product</button>
-    <p id="response" style="text-align:center;"></p>
+ 
+  
+  <form id="form">
+    <input name="name" placeholder="Product name" required />
+    <input name="price" type="number" placeholder="Price" required />
+    <textarea name="description" placeholder="Description"></textarea>
+    <input name="image" type="file" accept="image/*" required />
+    <button>Add Product</button>
+    <p id="msg"></p>
   </form>
-
 <div id="response"></div>
     
                             
@@ -135,25 +136,17 @@
         <!-- Product End -->
 
 <script>
-    document.getElementById("productForm").addEventListener("submit", async (e) => {
+    document.getElementById("form").addEventListener("submit", async (e) => {
       e.preventDefault();
+      const formData = new FormData(e.target);
 
-      const form = e.target;
-const data = {
-        name: form.name.value.trim(),
-        price: parseFloat(form.price.value),
-        description: form.description.value.trim(),
-      };
-const formData = new FormData(form);
-const res = await fetch("/api/add-product", {
+      const res = await fetch("/api/add-product", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data) ,formData,
+        body: formData
       });
- const result = await res.json();
-      document.getElementById("response").textContent = result.message || result.error;
-
-      if (res.ok) form.reset();
+      const data = await res.json();
+      document.getElementById("msg").textContent = data.message || data.error;
+      if (res.ok) e.target.reset();
     });
   </script>
        
